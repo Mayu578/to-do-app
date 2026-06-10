@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM FROM php:8.4-apache
 
 # 必要なPHP拡張モジュールのインストール
 RUN apt-get update && apt-get install -y \
