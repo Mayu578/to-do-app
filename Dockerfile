@@ -8,8 +8,9 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     git \
+    libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql
+    && docker-php-ext-install gd pdo pdo_mysql pdo_pgsql pgsql
 
 # Apacheの設定変更（Laravelのpublicフォルダをドキュメントルートにする）
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
