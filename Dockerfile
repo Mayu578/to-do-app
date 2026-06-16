@@ -28,9 +28,14 @@ COPY . .
 # 依存関係のインストール
 RUN composer install --no-dev --optimize-autoloader
 
-# 権限の設定
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
 EXPOSE 80
 
-CMD php artisan config:clear && php artisan migrate --force && apache2-foreground
+# 権限設定（念のため再確認）
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# キャッシュを徹底的に削除し、migrationを実行してからApacheを起動
+CMD rm -f bootstrap/cache/config.php && \
+    rm -f bootstrap/cache/services.php && \
+    rm -f bootstrap/cache/packages.php && \
+    php artisan migrate --force && \
+    apache2-foreground
