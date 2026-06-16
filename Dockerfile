@@ -25,15 +25,14 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 
-# 依存関係のインストール
-RUN composer install --no-dev --optimize-autoloader
+# 権限の設定を確実にする
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 EXPOSE 80
 
-# Dockerfileの最後をこれに差し替えてください
-RUN rm -rf bootstrap/cache/*
-CMD php artisan config:clear && \
+# 起動時に権限を再設定してから起動する
+CMD chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
+    php artisan config:clear && \
     php artisan cache:clear && \
     php artisan migrate --force && \
     apache2-foreground
-
