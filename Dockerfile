@@ -30,12 +30,9 @@ RUN composer install --no-dev --optimize-autoloader
 
 EXPOSE 80
 
-# 権限設定（念のため再確認）
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-# キャッシュを徹底的に削除し、migrationを実行してからApacheを起動
-CMD rm -f bootstrap/cache/config.php && \
-    rm -f bootstrap/cache/services.php && \
-    rm -f bootstrap/cache/packages.php && \
+# Dockerfileの最後をこれに差し替えてください
+RUN rm -rf bootstrap/cache/*
+CMD php artisan config:clear && \
+    php artisan cache:clear && \
     php artisan migrate --force && \
     apache2-foreground
