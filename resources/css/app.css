@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 全体のベース */
+body { background-color: #fcfcf9; color: #344e41; }
+.container { max-width: 600px; margin-top: 40px; }
+
+/* 入力フォームのカード化 */
+form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+    border: none;
+}
+.form-control { border-radius: 12px; border: 1px solid #e9ecef; }
+.btn-primary { background-color: #588157; border-radius: 12px; border: none; }
+
+/* タスクカード（北欧風カードUI） */
+.task-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    border: none;
+    transition: 0.3s;
+}
+.task-card:hover { transform: translateY(-3px); } /* ホバー時に少し浮く */
+
+/* アイコンボタン（柔らかいパステル調） */
+.btn-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.btn-view { background: #e0f2f1; color: #4d7c8a; }
+.btn-edit { background: #fff8e1; color: #bcaaa4; }
+.btn-delete { background: #ffebee; color: #e57373; }
+
+/* レスポンシブ対応 */
+@media (max-width: 576px) {
+    .task-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+    .task-actions { width: 100%; justify-content: flex-end; }
+}
